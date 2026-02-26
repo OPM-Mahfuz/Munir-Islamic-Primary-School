@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admissions | Munir Islamic Primary School</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+body {font-family:'Poppins',sans-serif;margin:0;padding:0;background:#f4f8f9;color:#333;}
+header {background: linear-gradient(135deg,#00695c,#004d40); color:white; position:sticky; top:0; padding:12px 20px; box-shadow:0 3px 12px rgba(0,0,0,0.2);}
+.header-container {display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; max-width:1200px;margin:auto;}
+.logo {display:flex;align-items:center;gap:12px;}
+.logo img {width:60px;height:60px;border-radius:50%;}
+.logo-text h2 {margin:0;font-size:20px;}
+nav ul {list-style:none;display:flex;gap:10px;flex-wrap:wrap;margin:0;padding:0;}
+nav ul li a {text-decoration:none;color:white;padding:10px 15px;border-radius:6px;transition:0.3s;}
+nav ul li a:hover {background:#00796b;}
+.section-title {text-align:center;margin:40px 0 20px;}
+.section-title h2 {font-size:32px;color:#00695c;border-bottom:4px solid #ffd54f;display:inline-block;padding-bottom:6px;}
+.card {background:white; padding:25px; margin:20px auto; border-radius:12px; box-shadow:0 5px 20px rgba(0,0,0,0.08); max-width:900px;}
+.admission-form input, .admission-form select, .admission-form textarea {width:100%; padding:14px; margin-bottom:15px; border-radius:8px; border:1px solid #ccc; font-size:16px;}
+.admission-form button {width:100%; background:#00695c; color:white; padding:14px; border:none; border-radius:8px; font-size:16px; font-weight:bold; cursor:pointer; transition:0.3s;}
+.admission-form button:hover {background:#004d40;}
+.sub-heading {color:#00695c;margin-top:20px;font-weight:600;font-size:18px;}
+footer {background:#004d40;color:white;text-align:center;padding:30px 15px;margin-top:40px;}
+@media(max-width:768px){.logo img {width:50px;height:50px;}.section-title h2 {font-size:26px;}.card {padding:20px;}.admission-form input,.admission-form select,.admission-form textarea {padding:12px;}.admission-form button {padding:12px;}}
+@media(max-width:480px){nav ul {flex-direction:column;} nav ul li a {padding:10px;}}
+</style>
+</head>
+<body>
+
+<header>
+<div class="header-container">
+<div class="logo">
+<img src="images/School Badge.jpeg" alt="School Logo">
+<div class="logo-text">
+<h2>Munir Islamic Primary School</h2>
+<span>Faith • Knowledge • Excellence</span>
+</div>
+</div>
+<nav>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="about.html">About</a></li>
+<li><a href="classes.html">Classes</a></li>
+<li><a href="admissions.html">Admissions</a></li>
+<li><a href="gallery.html">Gallery</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</nav>
+</div>
+</header>
+
+<section>
+<div class="section-title"><h2>Admissions</h2></div>
+<div class="card">
+<p>Admissions are open for <strong>Primary One (P1) to Primary Seven (P7)</strong>. Join Munir Islamic Primary School for quality Islamic and modern education.</p>
+
+<p class="sub-heading">Admission Requirements:</p>
+<ul>
+<li>Completed Admission Form</li>
+<li>Copy of Birth Certificate</li>
+<li>Passport-size Photograph</li>
+<li>Previous School Report (if applicable)</li>
+<li>Medical Records (optional)</li>
+</ul>
+</div>
+
+<div class="card">
+<div class="section-title"><h2>Online Admission Form</h2></div>
+<form id="admissionForm" class="admission-form">
+<input type="text" name="student_name" placeholder="Student Name" required>
+<input type="text" name="parent_name" placeholder="Parent/Guardian Name" required>
+<input type="email" name="email" placeholder="Email" required>
+<input type="tel" name="phone" placeholder="Phone Number" required>
+<select name="class" required>
+<option value="">Select Class</option>
+<option value="P1">Primary One (P1)</option>
+<option value="P2">Primary Two (P2)</option>
+<option value="P3">Primary Three (P3)</option>
+<option value="P4">Primary Four (P4)</option>
+<option value="P5">Primary Five (P5)</option>
+<option value="P6">Primary Six (P6)</option>
+<option value="P7">Primary Seven (P7)</option>
+</select>
+<textarea name="message" rows="4" placeholder="Additional Information (optional)"></textarea>
+<button type="submit">Submit Application</button>
+</form>
+</div>
+</section>
+
+<footer>
+© 2026 Munir Islamic Primary School | Phone: +256774076605
+</footer>
+
+<script>
+// Initialize storage
+if(!localStorage.getItem('admissionsData')) localStorage.setItem('admissionsData', JSON.stringify([]));
+
+document.getElementById('admissionForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const form = e.target;
+  const data = {
+    student_name: form.student_name.value,
+    parent_name: form.parent_name.value,
+    email: form.email.value,
+    phone: form.phone.value,
+    class: form.class.value,
+    message: form.message.value,
+    submitted_at: new Date().toLocaleString()
+  };
+  let allData = JSON.parse(localStorage.getItem('admissionsData'));
+  allData.push(data);
+  localStorage.setItem('admissionsData', JSON.stringify(allData));
+  
+  // Redirect to thank you page
+  window.location.href = "submit.html";
+});
+</script>
+
+</body>
+</html>

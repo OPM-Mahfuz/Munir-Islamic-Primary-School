@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Submitted Applications | Munir Islamic Primary School</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* Header/Footer Styling */
+body {font-family:'Poppins',sans-serif;margin:0;padding:0;background:#f4f8f9;color:#333;}
+header{background: linear-gradient(135deg,#00695c,#004d40); color:white; position:sticky; top:0; z-index:1000; padding:12px 15px; box-shadow:0 3px 12px rgba(0,0,0,0.2);}
+.header-container{max-width:1200px;margin:auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;}
+.logo{display:flex;align-items:center;gap:12px;}
+.logo img{width:60px;height:60px;border-radius:50%;}
+.logo-text h2{margin:0;font-size:20px;}
+nav ul{list-style:none;display:flex;gap:10px;flex-wrap:wrap;margin:0;padding:0;}
+nav ul li a{text-decoration:none;color:white;padding:10px 15px;border-radius:6px;transition:0.3s;}
+nav ul li a:hover{background:#00796b;}
+h2 {color:white;text-align:center;margin:40px 0 20px;}
+
+/* Enhanced Table Styling */
+.table-wrapper {overflow-x:auto; margin:0 auto; max-width:95%;}
+table {width:100%;border-collapse:separate;border-spacing:0;border-radius:12px;overflow:hidden;box-shadow:0 5px 20px rgba(0,0,0,0.15);}
+th, td {padding:14px 10px; text-align:left; font-size:14px;}
+th {background:#00695c;color:white; font-weight:600;}
+tbody tr:nth-child(even){background:#e0f7fa;}
+tbody tr:nth-child(odd){background:#f4f8f9;}
+tbody tr:hover{background:#ffd54f; color:#004d40; transition:0.3s;}
+button {background:#ffd54f;color:#004d40;padding:10px 20px;border:none;border-radius:25px;cursor:pointer;margin:20px 0;transition:0.3s; font-weight:bold;}
+button:hover {background:#ffca28;}
+footer {background:#004d40;color:white;text-align:center;padding:30px 15px;margin-top:40px;}
+
+/* Responsive */
+@media(max-width:768px){.logo img{width:50px;height:50px;} th, td{padding:10px; font-size:12px;}}
+@media(max-width:480px){nav ul{flex-direction:column;} nav ul li a{padding:10px;}}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+<div class="header-container">
+<div class="logo">
+<img src="images/School Badge.jpeg" alt="School Logo">
+<div class="logo-text">
+<h2>Munir Islamic Primary School</h2>
+<span>Faith • Knowledge • Excellence</span>
+</div>
+</div>
+<nav>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="about.html">About</a></li>
+<li><a href="classes.html">Classes</a></li>
+<li><a href="admissions.html">Admissions</a></li>
+<li><a href="gallery.html">Gallery</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</nav>
+</div>
+</header>
+
+<h2>Submitted Applications</h2>
+<div class="table-wrapper">
+<button id="downloadBtn">Download CSV</button>
+
+<table id="submissionsTable">
+<thead>
+<tr>
+<th>Student Name</th>
+<th>Parent Name</th>
+<th>Email</th>
+<th>Phone</th>
+<th>Class</th>
+<th>Message</th>
+<th>Submitted At</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</div>
+
+<!-- FOOTER -->
+<footer>
+© 2026 Munir Islamic Primary School | Phone: +256774076605
+</footer>
+
+<script>
+// ------------------------
+// ADMIN PASSWORD
+// ------------------------
+const ADMIN_PASSWORD = "MunirAdmin2026";
+let attempts = 3;
+let entered = prompt("Enter Admin Password to view submissions:");
+
+while (entered !== ADMIN_PASSWORD) {
+  attempts--;
+  if (attempts <= 0) {
+    alert("Access denied!");
+    document.body.innerHTML = "<h2 style='text-align:center;color:red;margin-top:50px;'>Access Denied</h2>";
+    throw new Error("Unauthorized access");
+  }
+  entered = prompt(`Incorrect password! Attempts remaining: ${attempts}`);
+}
+
+// ------------------------
+// LOAD SUBMISSIONS
+// ------------------------
+let submissions = JSON.parse(localStorage.getItem('admissionsData')) || [];
+const tbody = document.querySelector("#submissionsTable tbody");
+
+function renderTable() {
+  tbody.innerHTML = '';
+  submissions.forEach(sub => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${sub.student_name}</td>
+      <td>${sub.parent_name}</td>
+      <td>${sub.email}</td>
+      <td>${sub.phone}</td>
+      <td>${sub.class}</td>
+      <td>${sub.message}</td>
+      <td>${sub.submitted_at}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+renderTable();
+
+// ------------------------
+// CSV DOWNLOAD
+// ------------------------
+document.getElementById('downloadBtn').addEventListener('click', () => {
+  if(submissions.length===0){alert('No submissions to download!'); return;}
+  const headers = ["Student Name","Parent Name","Email","Phone","Class","Message","Submitted At"];
+  const rows = submissions.map(obj => headers.map(h=> `"${obj[h.toLowerCase().replace(/ /g,'_')] || ''}"`).join(','));
+  const csvContent = [headers.join(','), ...rows].join('\n');
+  const blob = new Blob([csvContent], {type:'text/csv;charset=utf-8;'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'admissions_submissions.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+});
+</script>
+
+</body>
+</html>

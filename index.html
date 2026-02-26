@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Home | Munir Islamic Primary School</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<style>
+
+/* ===== RESET ===== */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:Segoe UI, Arial, sans-serif;
+background:#f5f7fa;
+line-height:1.6;
+}
+
+/* ===== HEADER ===== */
+header{
+background:#004d40;
+color:white;
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+.header-container{
+max-width:1200px;
+margin:auto;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:10px 20px;
+flex-wrap:wrap;
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.logo img{
+width:55px;
+height:55px;
+border-radius:50%;
+}
+
+.logo-text h2{
+font-size:20px;
+}
+
+.logo-text span{
+font-size:13px;
+color:#ffd54f;
+}
+
+nav ul{
+display:flex;
+list-style:none;
+flex-wrap:wrap;
+}
+
+nav ul li{
+margin:5px;
+}
+
+nav ul li a{
+color:white;
+text-decoration:none;
+padding:8px 14px;
+border-radius:6px;
+transition:.3s;
+}
+
+nav ul li a:hover{
+background:#ffd54f;
+color:#004d40;
+}
+
+/* ===== HERO ===== */
+/* HERO */
+.hero{
+position:relative;
+height:90vh;
+overflow:hidden;
+}
+
+/* slides */
+.hero-slide{
+position:absolute;
+width:100%;
+height:100%;
+opacity:0;
+visibility:hidden;
+transform:scale(1.05);
+transition:
+opacity 1.2s ease,
+transform 6s ease;
+}
+
+.hero-slide.active{
+opacity:1;
+visibility:visible;
+transform:scale(1);
+z-index:2;
+}
+
+.hero-slide img,
+.hero-slide video{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+/* overlay */
+.hero::after{
+content:"";
+position:absolute;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.45);
+z-index:3;
+}
+
+/* arrows */
+.slide-btn{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+background:rgba(0,0,0,0.5);
+border:none;
+color:white;
+font-size:28px;
+padding:12px 18px;
+cursor:pointer;
+border-radius:50%;
+z-index:5;
+transition:.3s;
+}
+
+.slide-btn:hover{
+background:#ffd54f;
+color:#004d40;
+}
+
+.prev{left:20px;}
+.next{right:20px;}
+
+/* dots */
+.slide-dots{
+position:absolute;
+bottom:25px;
+width:100%;
+text-align:center;
+z-index:5;
+}
+
+.slide-dots span{
+display:inline-block;
+width:12px;
+height:12px;
+margin:5px;
+background:white;
+border-radius:50%;
+opacity:.5;
+cursor:pointer;
+transition:.3s;
+}
+
+.slide-dots span.active{
+opacity:1;
+background:#ffd54f;
+transform:scale(1.3);
+}
+
+/* progress bar */
+.slide-progress{
+position:absolute;
+bottom:0;
+width:100%;
+height:4px;
+background:rgba(255,255,255,0.3);
+z-index:5;
+}
+
+.slide-progress-bar{
+height:100%;
+width:0%;
+background:#ffd54f;
+}
+/* overlay */
+.hero::after{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.45);
+}
+
+/* hero text */
+.hero-content{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+text-align:center;
+color:white;
+z-index:10;
+padding:10px;
+}
+
+.hero-content h1{
+font-size:48px;
+margin-bottom:10px;
+}
+
+.hero-content p{
+font-size:22px;
+margin-bottom:20px;
+}
+
+.btn{
+background:#ffd54f;
+color:#004d40;
+padding:14px 28px;
+border-radius:30px;
+text-decoration:none;
+font-weight:bold;
+display:inline-block;
+transition:.3s;
+}
+
+.btn:hover{
+background:#ffca28;
+transform:scale(1.05);
+}
+
+/* slideshow buttons */
+.slide-btn{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+background:rgba(0,0,0,0.5);
+color:white;
+border:none;
+font-size:28px;
+padding:10px 16px;
+cursor:pointer;
+z-index:20;
+border-radius:50%;
+}
+
+.prev{ left:15px; }
+.next{ right:15px; }
+
+.slide-btn:hover{
+background:#ffd54f;
+color:#004d40;
+}
+
+/* ===== SECTIONS ===== */
+section{
+max-width:1200px;
+margin:50px auto;
+padding:0 20px;
+}
+
+.section-title{
+text-align:center;
+margin-bottom:30px;
+}
+
+.section-title h2{
+font-size:32px;
+color:#00695c;
+border-bottom:4px solid #ffd54f;
+display:inline-block;
+padding-bottom:6px;
+}
+
+/* ===== GRID ===== */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.card{
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 5px 20px rgba(0,0,0,0.08);
+text-align:center;
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-6px);
+box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* ===== STATS ===== */
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
+}
+
+.stat{
+background:#00695c;
+color:white;
+padding:25px;
+border-radius:12px;
+text-align:center;
+}
+
+.stat h3{
+font-size:32px;
+}
+
+/* ===== FOOTER ===== */
+footer{
+background:#004d40;
+color:white;
+text-align:center;
+padding:30px 15px;
+margin-top:40px;
+}
+
+/* ===== MOBILE ===== */
+@media(max-width:768px){
+
+.hero{
+height:75vh;
+}
+
+.hero-content h1{
+font-size:28px;
+}
+
+.hero-content p{
+font-size:16px;
+}
+
+.header-container{
+flex-direction:column;
+text-align:center;
+}
+
+nav ul{
+justify-content:center;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+<div class="header-container">
+
+<div class="logo">
+<img src="images/School Badge.jpeg">
+<div class="logo-text">
+<h2>Munir Islamic Primary School</h2>
+<span>Faith • Knowledge • Excellence</span>
+</div>
+</div>
+
+<nav>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="about.html">About</a></li>
+<li><a href="classes.html">Classes</a></li>
+<li><a href="admissions.html">Admissions</a></li>
+<li><a href="gallery.html">Gallery</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li><a href="submissions.html">Submissions</a></li>
+</ul>
+</nav>
+
+</div>
+</header>
+
+<!-- HERO -->
+<!-- HERO -->
+<div class="hero">
+
+    <div class="hero-slide active">
+        <img src="images/1.jpeg" alt="">
+    </div>
+
+    <div class="hero-slide">
+        <img src="images/3.jpeg" alt="">
+    </div>
+
+    <div class="hero-slide">
+        <img src="images/4.jpeg" alt="">
+    </div>
+
+    <div class="hero-slide">
+        <img src="images/5.jpeg" alt="">
+    </div>
+
+    <div class="hero-slide">
+        <img src="images/6.jpeg" alt="">
+    </div>
+
+    <div class="hero-slide">
+        <img src="images/7.jpeg" alt="">
+    </div>
+
+    <div class="hero-slide">
+        <img src="images/12.jpeg" alt="">
+    </div>
+
+
+    <!-- arrows -->
+    <button class="slide-btn prev">❮</button>
+    <button class="slide-btn next">❯</button>
+
+
+    <!-- dots -->
+    <div class="slide-dots"></div>
+
+
+    <!-- progress bar -->
+    <div class="slide-progress">
+        <div class="slide-progress-bar"></div>
+    </div>
+
+
+    <!-- text -->
+    <div class="hero-content">
+        <h1>Welcome to Munir Islamic Primary School</h1>
+        <p>Nurturing Faith, Knowledge and Excellence</p>
+        <a href="admissions.html" class="btn">Apply Now</a>
+    </div>
+
+</div>
+<!-- WHY -->
+<section>
+
+<div class="section-title">
+<h2>Why Choose Us</h2>
+</div>
+
+<div class="grid">
+
+<div class="card">
+<h3>Islamic Education</h3>
+<p>Strong Islamic values integrated with modern education.</p>
+</div>
+
+<div class="card">
+<h3>Academic Excellence</h3>
+<p>Consistently strong academic performance and discipline.</p>
+</div>
+
+<div class="card">
+<h3>Safe Environment</h3>
+<p>Secure, caring and supportive learning environment.</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- STATS -->
+<section>
+
+<div class="section-title">
+<h2>Our Achievements</h2>
+</div>
+
+<div class="stats">
+
+<div class="stat">
+<h3>486+</h3>
+<p>Pupils (142 Orphans)</p>
+</div>
+
+<div class="stat">
+<h3>30+</h3>
+<p>Teachers (Islamic & Secular)</p>
+</div>
+
+<div class="stat">
+<h3>13+</h3>
+<p>Years Experience</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+© 2026 Munir Islamic Primary School  
+<br>
+Phone: +256 774 076 605
+</footer>
+<script>
+
+const slides = document.querySelectorAll(".hero-slide");
+const hero = document.querySelector(".hero");
+const prevBtn = document.querySelector(".prev");
+const nextBtn = document.querySelector(".next");
+const dotsContainer = document.querySelector(".slide-dots");
+const progressBar = document.querySelector(".slide-progress-bar");
+
+let index = 0;
+let timer = null;
+const duration = 6000;
+let startTime = Date.now();
+
+/* SAFETY: ensure at least one slide active */
+function initializeSlides(){
+
+slides.forEach(slide => slide.classList.remove("active"));
+
+index = 0;
+
+if(slides.length > 0){
+slides[0].classList.add("active");
+}
+
+}
+
+initializeSlides();
+
+/* create dots safely */
+dotsContainer.innerHTML = "";
+
+slides.forEach((_, i)=>{
+
+const dot = document.createElement("span");
+
+dot.addEventListener("click", ()=>{
+goToSlide(i);
+});
+
+dotsContainer.appendChild(dot);
+
+});
+
+const dots = document.querySelectorAll(".slide-dots span");
+
+function showSlide(newIndex){
+
+slides[index].classList.remove("active");
+dots[index].classList.remove("active");
+
+index = (newIndex + slides.length) % slides.length;
+
+slides[index].classList.add("active");
+dots[index].classList.add("active");
+
+startTime = Date.now();
+
+}
+
+function nextSlide(){
+showSlide(index + 1);
+}
+
+function prevSlide(){
+showSlide(index - 1);
+}
+
+function goToSlide(i){
+showSlide(i);
+restartTimer();
+}
+
+/* buttons */
+nextBtn.onclick = ()=>{
+nextSlide();
+restartTimer();
+};
+
+prevBtn.onclick = ()=>{
+prevSlide();
+restartTimer();
+};
+
+/* progress animation */
+function animateProgress(){
+
+const elapsed = Date.now() - startTime;
+const percent = (elapsed / duration) * 100;
+
+progressBar.style.width = percent + "%";
+
+requestAnimationFrame(animateProgress);
+
+}
+
+animateProgress();
+
+/* autoplay */
+function startTimer(){
+
+if(timer) clearInterval(timer);
+
+timer = setInterval(()=>{
+nextSlide();
+}, duration);
+
+}
+
+function restartTimer(){
+startTimer();
+}
+
+startTimer();
+
+/* pause on hover */
+hero.addEventListener("mouseenter", ()=>{
+clearInterval(timer);
+});
+
+hero.addEventListener("mouseleave", ()=>{
+startTimer();
+});
+
+/* pause when tab inactive */
+document.addEventListener("visibilitychange", ()=>{
+if(document.hidden){
+clearInterval(timer);
+}else{
+startTimer();
+}
+});
+
+</script>
+</body>
+</html>
